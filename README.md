@@ -2,11 +2,11 @@
 
 To-do list application that allows users to create, edit, and delete tasks, set due dates and reminders, and categorize tasks into different lists.
 
-Database: \* + Redis
+Database: PostgreSQL
 
-Programming languages: C# + Javascript/Typescript
+Programming languages: Dart
 
-API communication: REST API or GRPC
+API communication: REST Framework
 
 # How to submit
 
