@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:app/pages/login.dart';
 import 'package:app/pages/UI.dart';
+import 'package:app/todo_pages/show.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 var token; // for storing the user's token
@@ -23,10 +24,10 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Overdose+ App',
+      title: 'Todolist DogDog App',
       theme: ThemeData(primarySwatch: Colors.indigo),
-      home: UIPage(),  // direct to this page first due to more convenient for the coder in debugging mode
-      // home: token == null ? LoginPage() : UIPage(),  // ternary operation of check whether current using has token or not, if not user need to login first!
+      //home: Todolist(),  // direct to this page first due to more convenient for the coder in debugging mode
+      home: token == null ? LoginPage() : UIPage(),  // ternary operation of check whether current using has token or not, if not user need to login first!
     );
   }
 }
