@@ -24,7 +24,7 @@ class _DetailPageState extends State<DetailPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(_v1), backgroundColor: Colors.black,),
+      appBar: AppBar(title: Text(_v1), backgroundColor: Colors.indigo[400]),
       body: Padding(
         padding: const EdgeInsets.all(20),
         child: ListView(

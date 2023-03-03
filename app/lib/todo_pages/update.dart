@@ -73,7 +73,7 @@ class _UpdatePageState extends State<UpdatePage> {
                 }, 
                 child: Text("แก้ไข"),
                 style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all(Colors.blue),
+                  backgroundColor: MaterialStateProperty.all(Colors.amber[900]),
                   padding: MaterialStateProperty.all(EdgeInsets.fromLTRB(50, 20, 50, 20)),
                   textStyle: MaterialStateProperty.all(TextStyle(fontSize: 20)),
                 ),),),

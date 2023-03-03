@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:app/todo_pages/add.dart';
+import 'package:app/todo_pages/todo.dart';
 import 'package:http/http.dart' as http;
 import 'dart:async';
 import 'dart:convert';
@@ -14,7 +15,9 @@ class Todolist extends StatefulWidget {
 }
 
 class _TodolistState extends State<Todolist> {
-  List todolistitems=[];  // fucking global variable
+  List todolistitems=[
+    // ['1', 'cleaning', 'quickly'],
+  ];
 
   @override
   void initState() {
@@ -53,7 +56,7 @@ class _TodolistState extends State<Todolist> {
             Navigator.push(context, MaterialPageRoute(
               builder: (context)=>UpdatePage(
                 todolistitems[index]['id'], 
-                todolistitems[index]['title'], 
+                todolistitems[index]['title'],
                 todolistitems[index]['detail']))).then((value) {
                   setState(() {
                     print(value);
