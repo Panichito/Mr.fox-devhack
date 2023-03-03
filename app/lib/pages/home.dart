@@ -1,17 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:app/pages/noSuggestSearch.dart';
 import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:app/pages/viewRecord.dart';
-import 'package:app/pages/history.dart';
-import 'package:app/pages/updateProfile.dart';
 import 'package:http/http.dart' as http;
 import 'dart:async';
 import 'dart:convert';
 import 'package:app/pages/notification.dart';
 import 'package:timezone/data/latest.dart' as tz;
-
-bool _isShow = false;
 
 // patient constructor
 class Schedule {
@@ -62,195 +56,6 @@ class _HomePageState extends State<HomePage> {
               element.medName.toLowerCase().contains(value.toLowerCase()))
           .toList();
     });
-  }
-
-  /* create a button panel for view user's record, edit profile, and view user's history */
-  @override
-  Widget homeButton() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: [
-        Column(
-          children: [
-            RawMaterialButton(
-              onPressed: () {
-                getMyId();
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => RecordPage(myid, false)));
-              },
-              elevation: 2.0,
-              fillColor: Colors.white,
-              child: Icon(
-                Icons.edit_note_sharp,
-                size: 35.0,
-                color: Colors.indigo[400],
-              ),
-              padding: EdgeInsets.all(10.0),
-              shape: CircleBorder(),
-            ),
-            SizedBox(height: 5),
-            Text(
-              'View Record',
-              style: TextStyle(
-                  fontSize: 13,
-                  color: Colors.indigo[400],
-                  fontFamily: 'Quicksand',
-                  fontWeight: FontWeight.bold),
-            ),
-          ],
-        ),
-        Column(
-          children: [
-            RawMaterialButton(
-              onPressed: () async {
-                final SharedPreferences pref = await SharedPreferences.getInstance();
-                var id = pref.getInt('id');
-                var fname = pref.getString('first_name');
-                var lname = pref.getString('last_name');
-                var bdate = pref.getString('birthdate');
-                var gen = pref.getString('gender');
-                var pfp = pref.getString('profilepic');
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => UpdateProfilePage(id, fname, lname, bdate, gen, pfp)));
-              },
-              elevation: 2.0,
-              fillColor: Colors.white,
-              child: Icon(
-                Icons.manage_accounts,
-                size: 35.0,
-                color: Colors.indigo[400],
-              ),
-              padding: EdgeInsets.all(10.0),
-              shape: CircleBorder(),
-            ),
-            SizedBox(height: 5),
-            Text(
-              'My Profile',
-              style: TextStyle(
-                  fontSize: 13,
-                  color: Colors.indigo[400],
-                  fontFamily: 'Quicksand',
-                  fontWeight: FontWeight.bold),
-            ),
-          ],
-        ),
-        Column(
-          children: [
-            RawMaterialButton(
-              onPressed: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => HistoryPage(myid)));
-              },
-              elevation: 2.0,
-              fillColor: Colors.white,
-              child: Icon(
-                Icons.history_edu,
-                size: 35.0,
-                color: Colors.indigo[400],
-              ),
-              padding: EdgeInsets.all(10.0),
-              shape: CircleBorder(),
-            ),
-            SizedBox(height: 5),
-            Text(
-              'My History',
-              style: TextStyle(
-                  fontSize: 13,
-                  color: Colors.indigo[400],
-                  fontFamily: 'Quicksand',
-                  fontWeight: FontWeight.bold),
-            ),
-          ],
-        ),
-        if (_role == 'CARETAKER' && cstatus != null)
-          Column(
-            children: [
-              RawMaterialButton(
-                onPressed: () {
-                  setState(() {
-                    if (cstatus == true) {
-                      switchCaretakingStatus("False");
-                    }
-                    else {
-                      switchCaretakingStatus("True");
-                    }
-                    cstatus = !(cstatus!);
-                  });
-                  print('Change my caretaking status to -> '+'${cstatus}');
-                },
-                elevation: 2.0,
-                fillColor: Colors.white,
-                child: Icon(
-                  Icons.swipe_vertical_sharp,
-                  size: 35.0,
-                  color: cstatus! ? Colors.greenAccent[700] : Colors.red[400],
-                ),
-                padding: EdgeInsets.all(10.0),
-                shape: CircleBorder(),
-              ),
-              SizedBox(height: 5),
-              Text(
-                'ON/OFF',
-                style: TextStyle(
-                    fontSize: 13,
-                    color: cstatus! ? Colors.greenAccent[700] : Colors.red[400],
-                    fontFamily: 'Quicksand',
-                    fontWeight: FontWeight.bold),
-              ),
-            ],
-          ),
-      ],
-    );
-  }
-
-  /* create a container displaying user's information */
-  Widget header() {
-    return Container(
-      decoration: BoxDecoration(
-          color: Colors.indigo[400],
-          borderRadius: BorderRadius.vertical(
-            bottom: Radius.circular(24),
-            top: Radius.circular(24),
-          )),
-      child: Padding(
-        padding: const EdgeInsets.fromLTRB(10, 20, 10, 20),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                const Text('Welcome Back,',
-                    style: TextStyle(
-                      fontSize: 16,
-                      color: Colors.white,
-                    )),
-                const SizedBox(height: 5),
-                Container(
-                  width: 150,
-                  child: Text(
-                    username,
-                    overflow: TextOverflow.ellipsis,
-                    maxLines: 1,
-                    style: const TextStyle(fontSize: 20, color: Colors.white),
-                  ),
-                )
-              ],
-            ),
-            const SizedBox(width: 100),
-            CircleAvatar(
-              backgroundImage: NetworkImage(profilepic),
-              radius: 30,
-            ),
-          ],
-        ),
-      ),
-    );
   }
 
   /* create a schedule card for user to communicate with the database when taking medicine */
@@ -342,47 +147,13 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Column(
+      body: Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Expanded(
           child: ListView(
             children: [
-              Padding(
-                  padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
-                  child: header()),
-              /*Four circle button
-            and text"Schedule"
-            inside this Column()
-          */
-              Column(
-                children: [
-                  Text('My Schedule',
-                      style: TextStyle(
-                          fontSize: 20,
-                          color: Colors.indigo[400],
-                          //fontFamily: 'Quicksand',
-                          fontWeight: FontWeight.bold)),
-                  Padding(
-                    padding: const EdgeInsets.all(12),
-                    child: noSuggestSearch((value) => updateList(value)),
-                  ),
-                  Visibility(visible: _isShow, child: homeButton()),
-                  /* End of Four Button*/
-
-                  IconButton(
-                    onPressed: () {
-                      setState(() {
-                        _isShow = !_isShow;
-                      });
-                    },
-                    icon: Icon(
-                      _isShow ? Icons.expand_less : Icons.expand_circle_down,
-                      color: Colors.indigo[400],
-                    ),
-                  ),
-                ],
-              ),
+              Padding(padding: const EdgeInsets.fromLTRB(10, 10, 10, 10)),
               Column(
                 children: [
                   ...scheduleList

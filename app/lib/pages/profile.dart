@@ -1,10 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:app/pages/searchPatient.dart';
-import 'package:app/pages/viewRecord.dart';
-import 'package:app/pages/history.dart';
 
 class ProfilePage extends StatefulWidget {
-  final Patient patient;
   const ProfilePage(this.patient);
 
   @override

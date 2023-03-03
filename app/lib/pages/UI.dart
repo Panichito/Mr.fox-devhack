@@ -1,11 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:app/pages/searchCaretaker.dart';
 import 'package:app/pages/home.dart';
-import 'package:app/pages/allMedicine.dart';
 import 'package:app/pages/login.dart';
-import 'package:app/pages/searchPatient.dart';
 import 'package:app/pages/updateProfile.dart';
-import 'package:app/pages/incomeRequest.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -38,24 +34,9 @@ class _UIPageState extends State<UIPage> {
     var pagename = [];
     List<Widget> widgetBottom = [];
     /* Each role has a different scope of use. */
-    if (_role == 'PATIENT') {
-      pagename = ['Home Page', 'Find Caretaker Page', 'All Medicine'];
-      widgetBottom = [HomePage(), SearchCaretakerPage(), MyMedsPage()];
-    } else {
-      // either caretaker or admin is the stuff
-      pagename = [
-        'Home Page',
-        'Find Caretaker Page',
-        'All Medicine',
-        'Search My Patient'
-      ];
-      widgetBottom = [
-        HomePage(),
-        SearchCaretakerPage(),
-        MyMedsPage(),
-        SearchPatientAdv(),
-      ];
-    }
+    pagename = ['Home Page'];
+    widgetBottom = [HomePage()];
+
     /* This section of code handles Tab in each pages. We will configure the navbar to be the same on every page to make it easier to use and edit. */
     return DefaultTabController(
       length: 1,
@@ -79,40 +60,7 @@ class _UIPageState extends State<UIPage> {
         body: TabBarView(children: [
           Center(child: widgetBottom.elementAt(_selectedIndex)),
         ]),
-        bottomNavigationBar:
-            _role == 'PATIENT' ? buildBottomNavBar() : buildBottomNavBarStaff(),
       ),
-    );
-  }
-
-  /* build a bottom navigation bar for patients */
-  Widget buildBottomNavBar() {
-    return BottomNavigationBar(
-      items: [
-        BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-        BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Caretaker'),
-        BottomNavigationBarItem(icon: Icon(Icons.medication), label: 'Med'),
-      ],
-      currentIndex: _selectedIndex,
-      onTap: _onItem,
-      selectedItemColor: Colors.indigo[800],
-      unselectedItemColor: Colors.grey,
-    );
-  }
-
-  /* build a bottom navigation bar for caretakers */
-  Widget buildBottomNavBarStaff() {
-    return BottomNavigationBar(
-      items: [
-        BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-        BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Caretaker'),
-        BottomNavigationBarItem(icon: Icon(Icons.medication), label: 'Med'),
-        BottomNavigationBarItem(icon: Icon(Icons.search), label: 'Search'),
-      ],
-      currentIndex: _selectedIndex,
-      onTap: _onItem,
-      selectedItemColor: Colors.indigo[800],
-      unselectedItemColor: Colors.grey,
     );
   }
 
@@ -121,25 +69,10 @@ class _UIPageState extends State<UIPage> {
     return Drawer(
         child: Column(
       children: [
-        //Container(height: 100, color: Colors.indigo[400]),
         UserAccountsDrawerHeader(
             accountName: Text(fullname),
             accountEmail: null,
             decoration: BoxDecoration(color: Colors.indigo[400])),
-
-        // user is caretaker show incoming request as demo for further development
-        if (_role == 'CARETAKER') ...[
-          ListTile(
-            leading: Icon(Icons.notifications),
-            title: Text('Incoming Requests'),
-            onTap: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => IncomingRequestPage()));
-            },
-          ),
-        ],
         ListTile(
           leading: Icon(Icons.menu_book),
           title: Text('How to use'),
