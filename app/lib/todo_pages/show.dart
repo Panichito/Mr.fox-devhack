@@ -81,7 +81,7 @@ class _TodolistState extends State<Todolist> {
 
   Future<void> getTodolist() async {
     List alltodo=[];
-    var url=Uri.http('192.168.1.52:8000', '/api/all-todolist');
+    var url=Uri.https('weatherreporto.pythonanywhere.com', '/api/all-todolist');
     var response=await http.get(url);
     //var result=json.decode(response.body);
     var result=utf8.decode(response.bodyBytes);

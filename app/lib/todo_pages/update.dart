@@ -84,8 +84,7 @@ class _UpdatePageState extends State<UpdatePage> {
   }
 
   Future updateTodo() async {
-    //var url=Uri.https('b00a-2001-fb1-b1-4547-5bd-8033-34d0-2a30.ngrok.io', '/api/update-todolist/$_v1');
-    var url=Uri.http('192.168.1.52:8000', '/api/update-todolist/$_v1');
+    var url=Uri.https('weatherreporto.pythonanywhere.com', '/api/update-todolist/$_v1');
     Map<String, String> header={"Content-type":"application/json"};
     String jsondata='{"title":"${todo_title.text}", "detail":"${todo_detail.text}"}';
     var response=await http.put(url, headers: header, body: jsondata);
@@ -94,7 +93,7 @@ class _UpdatePageState extends State<UpdatePage> {
   }
 
   Future deleteTodo() async {
-    var url=Uri.http('192.168.1.52:8000', '/api/delete-todolist/$_v1');
+    var url=Uri.https('weatherreporto.pythonanywhere.com', '/api/delete-todolist/$_v1');
     Map<String, String> header={"Content-type":"application/json"};
     var response=await http.delete(url, headers: header);
     print('----result----');

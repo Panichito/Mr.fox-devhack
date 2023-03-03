@@ -64,8 +64,7 @@ class _AddPageState extends State<AddPage> {
   }
 
   Future postTodo() async {
-    //var url=Uri.https('b00a-2001-fb1-b1-4547-5bd-8033-34d0-2a30.ngrok.io', '/api/post-todolist');  // ngrok http 8000
-    var url=Uri.http('192.168.1.52:8000', '/api/post-todolist');
+    var url=Uri.https('weatherreporto.pythonanywhere.com', '/api/post-todolist');
     Map<String, String> header={"Content-type":"application/json"};
     String jsondata='{"title":"${todo_title.text}", "detail":"${todo_detail.text}"}';
     var response=await http.post(url, headers: header, body: jsondata);
