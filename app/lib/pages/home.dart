@@ -8,14 +8,15 @@ import 'package:app/pages/notification.dart';
 import 'package:timezone/data/latest.dart' as tz;
 
 // patient constructor
-class Schedule {
-  int alertId;
-  String disease;
-  String medName;
-  String time;
-  bool isTake;
+class Todo{
+  int todoId;
+  int userId;
+  String task;
+  String detail;
+  String dueDate;
+  bool isDone;
 
-  Schedule(this.alertId, this.disease, this.medName, this.time, this.isTake);
+  Todo(this.todoId, this.userId, this.task, this.detail, this.dueDate, this.isDone);
 }
 
 class HomePage extends StatefulWidget {
@@ -32,10 +33,12 @@ class _HomePageState extends State<HomePage> {
   int? myid;
   bool? cstatus;
 
-  // schedules list
+  // todos list
   List getAlert = [];
-  List<Schedule> allSchedule = [];
-  List<Schedule> scheduleList = [];
+  List<Todo> allTodo = [];
+  List<Todo> todoList = [
+    Todo(1,1, 'cleaning', 'do it quick', '2023-02-23', false),
+  ];
   var _role;
   NotificationService notificationService = NotificationService();
 
@@ -48,25 +51,13 @@ class _HomePageState extends State<HomePage> {
     getMyAlerts();
   }
 
-  /* update the schedule displaying list after input the search input */
-  void updateList(String value) {
-    setState(() {
-      scheduleList = allSchedule
-          .where((element) =>
-              element.medName.toLowerCase().contains(value.toLowerCase()))
-          .toList();
-    });
-  }
-
   /* create a schedule card for user to communicate with the database when taking medicine */
-  Widget scheduleCard(Schedule schedule) {
-    String formattedDate = DateFormat('yyyy-MM-dd').format(DateTime.now());
-    DateTime dt = DateTime.parse(formattedDate + " " + schedule.time).toLocal();
-    String formattedTime = DateFormat('kk:mm').format(dt);
-    print(allSchedule);
-
+  Widget todoCard(Todo todo) {
+    DateTime dt = DateTime.parse(todo.dueDate);
+    String formattedDate = DateFormat('dd/MM/yyyy').format(dt);
+    // String formattedDate = DateFormat('dd/MM/yyyy').format(DateTime.now());
     return Card(
-      color: schedule.isTake ? Colors.green[100] : Colors.red[100],
+      color: todo.isDone ? Colors.green[100] : Colors.red[100],
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(10),
       ),
@@ -81,25 +72,21 @@ class _HomePageState extends State<HomePage> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    schedule.medName,
+                    todo.task,
                     style: TextStyle(
                         fontSize: 30.0,
                         color: Colors.grey[700],
                         fontWeight: FontWeight.bold),
                   ),
-                  Text('Disease: ${schedule.disease}',
+                  Text('${todo.detail}',
                       style:
-                          TextStyle(fontSize: 12.0, color: Colors.grey[700])),
+                          TextStyle(fontSize: 16.0, color: Colors.grey[700])),
                   const SizedBox(height: 20),
-                  Text('Time: ${formattedTime}',
+                  Text('Due date: $formattedDate',
                       style: TextStyle(
                           fontSize: 22.0,
                           color: Colors.grey[700],
                           fontStyle: FontStyle.italic)),
-                  // const SizedBox(height: 4),
-                  // Text('Schedule-id: S${schedule.id}', style: TextStyle(fontSize: 16.0, color: Colors.grey[800])),
-                  // const SizedBox(height: 4),
-                  // Text('Record-id: R${schedule.recordId}', style: TextStyle(fontSize: 16.0, color: Colors.grey[800])),
                 ],
               ),
             ),
@@ -109,30 +96,29 @@ class _HomePageState extends State<HomePage> {
                   onPressed: () {
                     // set isTaken to false
                     setState(() {
-                      if (schedule.isTake == false) {
-                        setAlertStatus(schedule.alertId, "True");
-                        // create new history
-                        createHistory(schedule.alertId);
+                      if (todo.isDone == false) {
+                        setAlertStatus(todo.todoId, "True");
+                        // // create new history
+                        // createHistory(todo.todoId);
                       } else {
-                        setAlertStatus(schedule.alertId, "False");
+                        setAlertStatus(todo.todoId, "False");
                         // delete existing history
-                        clearHistory(schedule.alertId);
+                        // clearHistory(schedule.alertId);
                       }
-                      schedule.isTake = !schedule
-                          .isTake; // เซ็ตไปด้วยเลยเพื่อความรวดเร็ว จะได้ไม่ต้อง reload
+                      todo.isDone = !todo.isDone;
                     });
                   },
                   style: ElevatedButton.styleFrom(
                     padding: EdgeInsets.all(16),
                     backgroundColor: Colors.grey[700],
                   ),
-                  child: !schedule.isTake
+                  child: !todo.isDone
                       ? const Text(
-                          'Take',
+                          'Done',
                           style: TextStyle(fontSize: 20),
                         )
                       : const Text(
-                          'Untake',
+                          'Not yet',
                           style: TextStyle(fontSize: 20),
                         ),
                 ),
@@ -148,30 +134,26 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Column(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        Expanded(
-          child: ListView(
-            children: [
-              Padding(padding: const EdgeInsets.fromLTRB(10, 10, 10, 10)),
-              Column(
-                children: [
-                  ...scheduleList
-                      .map((schedule) => scheduleCard(schedule))
-                      .toList(),
-                  const SizedBox(
-                    height: 16,
-                  )
-                ],
-              ),
-            ],
-          ),
-        )
-      ],
-    )
-
-        // bottomNavigationBar: const bot(),
-        );
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Expanded(
+            child: ListView(
+              children: [
+                Padding(padding: const EdgeInsets.fromLTRB(10, 10, 10, 10)),
+                Column(
+                  children: [
+                    ...todoList
+                        .map((todo) => todoCard(todo))
+                        .toList(),
+                    const SizedBox(height: 16,)
+                  ],
+                ),
+              ],
+            ),
+          )
+        ],
+      )
+    );
   }
 
   /* check if username exists and query user information from database */
@@ -214,20 +196,21 @@ class _HomePageState extends State<HomePage> {
     print('RECEIVE ALL OF MY ALERT');
     setState(() {
       getAlert = jsonDecode(result);
-      allSchedule = [];
+      allTodo = [];
       for (int i = 0; i < getAlert.length; ++i) {
-        allSchedule.add(Schedule(
-            getAlert[i]['id'],
-            getAlert[i]['disease'],
-            getAlert[i]['medname'],
-            getAlert[i]['time'],
-            getAlert[i]['isTake']));
+        allTodo.add(Todo(
+            getAlert[i]['todoId'],
+            getAlert[i]['userId'],
+            getAlert[i]['task'],
+            getAlert[i]['detail'],
+            getAlert[i]['dueDate'],
+            getAlert[i]['isDone']));
       }
-      scheduleList =
-          List.from(allSchedule); // map all schedule into the display list
+      todoList =
+          List.from(allTodo); // map all schedule into the display list
       tz.initializeTimeZones();
       notificationService.initNotification();
-      if (allSchedule.isNotEmpty) {
+      if (allTodo.isNotEmpty) {
         notificationService.showNotification(
             'Daily reminder', "Don't forget to take your medicine today!");
       }
