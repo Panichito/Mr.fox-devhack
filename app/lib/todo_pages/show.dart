@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:app/todo_pages/add.dart';
-import 'package:app/todo_pages/todo.dart';
 import 'package:http/http.dart' as http;
 import 'dart:async';
 import 'dart:convert';
@@ -8,16 +7,13 @@ import 'dart:convert';
 import 'package:app/todo_pages/update.dart';
 
 class Todolist extends StatefulWidget {
-  //const Todolist({super.key});
 
   @override
   State<Todolist> createState() => _TodolistState();
 }
 
 class _TodolistState extends State<Todolist> {
-  List todolistitems=[
-    // ['1', 'cleaning', 'quickly'],
-  ];
+  List todolistitems=[];
 
   @override
   void initState() {

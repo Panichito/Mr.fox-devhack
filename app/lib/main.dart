@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:app/pages/login.dart';
 import 'package:app/pages/UI.dart';
-import 'package:app/todo_pages/show.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 var token; // for storing the user's token
