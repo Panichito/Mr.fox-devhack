@@ -12,15 +12,44 @@ class HomeRegisterPage extends StatefulWidget {
 }
 
 class _HomeRegisterPageState extends State<HomeRegisterPage> {
+  List eventlist=[];
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getEvent();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: allEvent(),
     );
   }
-}
 
-Widget allEvent() {
-  return ListView(
-  );
+  Widget allEvent() {
+    return ListView.builder(
+      itemCount: eventlist.length,
+      itemBuilder: (context, index) {
+        return Card(
+          child: ListTile(
+            title: Text("${index+1} - ${eventlist[index]['name']}"),
+          ),
+        );
+      }
+    );
+  }
+
+  Future<void> getEvent() async {
+    List alltodo=[];
+    var url=Uri.https('weatherreporto.pythonanywhere.com', '/api/all-event');
+    var response=await http.get(url);
+    //var result=json.decode(response.body);
+    var result=utf8.decode(response.bodyBytes);
+    print(result);
+    setState(() {
+      eventlist=jsonDecode(result);
+    });
+  }
 }
