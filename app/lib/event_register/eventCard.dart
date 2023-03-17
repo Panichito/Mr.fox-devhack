@@ -34,6 +34,7 @@ class _EventCardState extends State<EventCard> {
                       widget.event,
                       style: const TextStyle(
                         fontSize: 26,
+                          fontFamily: 'Quicksand'
                       ),
                     ),
                     const SizedBox(height: 6,),

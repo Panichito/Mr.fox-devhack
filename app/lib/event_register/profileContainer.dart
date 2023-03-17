@@ -44,7 +44,7 @@ class _ProfileContainerState extends State<ProfileContainer> {
                     username,
                     overflow: TextOverflow.ellipsis,
                     maxLines: 1,
-                    style: const TextStyle(fontSize: 28, color: Colors.white),
+                    style: const TextStyle(fontSize: 28, color: Colors.white, fontFamily: 'Quicksand'),
                   ),
                 )
               ],
