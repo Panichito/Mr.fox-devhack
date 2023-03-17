@@ -33,7 +33,7 @@ class _HomeRegisterPageState extends State<HomeRegisterPage> {
     return ListView.builder(
       itemCount: eventlist.length,
       itemBuilder: (context, index) {
-        return EventCard(eventlist[index]['name']);
+        return EventCard(eventlist[index]['name'], eventlist[index]['start'], eventlist[index]['end']);
       }
     );
   }
