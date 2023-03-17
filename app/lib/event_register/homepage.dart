@@ -4,7 +4,7 @@ import 'package:http/http.dart' as http;
 import 'dart:async';
 import 'dart:convert';
 import 'eventCard.dart';
-// import 'profileContainer.dart';
+import 'profileContainer.dart';
 
 class HomeRegisterPage extends StatefulWidget {
   const HomeRegisterPage({super.key});
@@ -26,7 +26,18 @@ class _HomeRegisterPageState extends State<HomeRegisterPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: allEvent(),
+      body: Column(
+        children: [
+          ProfileContainer(),
+          Expanded(
+            child: Column(
+              children: [
+                Expanded(child: allEvent(),)
+              ]
+            ),
+          ),
+        ],
+      ),
     );
   }
 
