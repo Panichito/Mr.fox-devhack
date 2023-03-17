@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:async';
 import 'dart:convert';
+import 'eventCard.dart';
 
 class HomeRegisterPage extends StatefulWidget {
   const HomeRegisterPage({super.key});
@@ -32,11 +33,7 @@ class _HomeRegisterPageState extends State<HomeRegisterPage> {
     return ListView.builder(
       itemCount: eventlist.length,
       itemBuilder: (context, index) {
-        return Card(
-          child: ListTile(
-            title: Text("${index+1} - ${eventlist[index]['name']}"),
-          ),
-        );
+        return EventCard(eventlist[index]['name']);
       }
     );
   }
