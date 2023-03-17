@@ -24,7 +24,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Todolist BigD App',
-      theme: ThemeData(primarySwatch: Colors.indigo),
+      theme: ThemeData(primarySwatch: Colors.amber),
       // home: UIPage(),  // direct to this page first due to more convenient for the coder in debugging mode
       home: token == null ? LoginPage() : UIPage(),  // ternary operation of check whether current using has token or not, if not user need to login first!
     );

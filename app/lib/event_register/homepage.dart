@@ -4,6 +4,7 @@ import 'package:http/http.dart' as http;
 import 'dart:async';
 import 'dart:convert';
 import 'eventCard.dart';
+// import 'profileContainer.dart';
 
 class HomeRegisterPage extends StatefulWidget {
   const HomeRegisterPage({super.key});
