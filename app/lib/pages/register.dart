@@ -47,7 +47,7 @@ class _RegisterPageState extends State<RegisterPage> {
               'Register',
               style: TextStyle(
                   fontFamily: 'Quicksand',
-                  color: Colors.indigo[400],
+                  color: Colors.amber[800],
                   fontSize: 70),
               textAlign: TextAlign.left,
             ),
@@ -176,7 +176,7 @@ class _RegisterPageState extends State<RegisterPage> {
               ),
             ),
             SizedBox(height: 30),
-            Text('Optional:', style: TextStyle(color: Colors.indigo[400])),
+            Text('Optional:', style: TextStyle(color: Colors.orange[700])),
 
             /* First Name TextField */
             SizedBox(height: 10),

@@ -31,7 +31,7 @@ class _LoginPageState extends State<LoginPage> {
               'Login',
               style: TextStyle(
                   fontFamily: 'Quicksand',
-                  color: Colors.indigo[400],
+                  color: Colors.amber[800],
                   fontSize: 70),
               textAlign: TextAlign.left,
             ),
@@ -99,7 +99,7 @@ class _LoginPageState extends State<LoginPage> {
                           MaterialPageRoute(
                               builder: (context) => RegisterPage()));
                     },
-                    child: const Text('Register')),
+                    child: Text('Register', style: TextStyle(color: Colors.orange[700]))),
               ],
             ),
             const SizedBox(height: 30),
