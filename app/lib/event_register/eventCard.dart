@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'dart:async';
+import 'dart:convert';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'enrollment.dart';
 
 class EventCard extends StatefulWidget {
@@ -18,7 +22,16 @@ class EventCard extends StatefulWidget {
 }
 
 class _EventCardState extends State<EventCard> {
-  bool pressed = false;
+  int? myid;
+  bool pressed=false;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getMyState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -58,14 +71,18 @@ class _EventCardState extends State<EventCard> {
               ElevatedButton(
                 onPressed: () {
                   setState(() {
-                    pressed = !pressed;
-                    confirmEnroll(widget.id);
+                    if(pressed==false) {
+                      confirmEnroll(widget.id);
+                    }
+                    else {
+                      cancelEnroll(widget.id);
+                    }
+                    pressed = !pressed;  // set ไปเลยเพื่อความรวดเร็ว จะได้ไม่ต้อง reload
                   });
                 },
                 style: ElevatedButton.styleFrom(
                   padding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
-                  backgroundColor: pressed
-                    ? Colors.redAccent : Colors.greenAccent,
+                  backgroundColor: pressed ? Colors.redAccent : Colors.greenAccent,
                 ),
                 child: pressed
                   ? const Text(
@@ -85,5 +102,20 @@ class _EventCardState extends State<EventCard> {
         ),
       ),
     );
+  }
+
+  Future<void> getMyId() async {
+    final SharedPreferences pref = await SharedPreferences.getInstance();
+    myid = pref.getInt('id');
+  }
+
+  Future<void> getMyState() async {
+    await getMyId();
+    var url=Uri.https('weatherreporto.pythonanywhere.com', '/api/ask-enroll/$myid/${widget.id}');
+    var response=await http.get(url);
+    var result=utf8.decode(response.bodyBytes);
+    setState(() {
+        pressed=jsonDecode(result) > 0 ? true : false;
+    });
   }
 }
