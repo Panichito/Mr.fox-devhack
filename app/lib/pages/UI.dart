@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:app/pages/login.dart';
 import 'package:app/todo_pages/show.dart';
+import 'package:app/event_register/homepage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -31,8 +32,8 @@ class _UIPageState extends State<UIPage> {
     var pagename = [];
     List<Widget> widgetBottom = [];
     /* Each role has a different scope of use. */
-    pagename = ["รายการสิ่งที่คุณต้องทำ"];
-    widgetBottom = [Todolist()];
+    pagename = ["ระบบลงทะเบียน โดย WHES"];  // we have exams on sunday
+    widgetBottom = [HomeRegisterPage()];
 
     /* This section of code handles Tab in each pages. We will configure the navbar to be the same on every page to make it easier to use and edit. */
     return DefaultTabController(
