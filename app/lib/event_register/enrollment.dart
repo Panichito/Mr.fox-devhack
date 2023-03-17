@@ -15,7 +15,11 @@ Future<void> confirmEnroll(int eid) async {
   print(response.body);
 }
 
+var enroll_id;
 Future<void> cancelEnroll(int eid) async {
-  var enroll_id;
+  await getEnrollId(eid);
   var url=Uri.https('weatherreporto.pythonanywhere.com', '/api/delete-enroll/$enroll_id');
+}
+
+Future<void> getEnrollId(int eid) async {
 }

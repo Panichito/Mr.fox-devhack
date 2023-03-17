@@ -32,7 +32,7 @@ class _UIPageState extends State<UIPage> {
     var pagename = [];
     List<Widget> widgetBottom = [];
     /* Each role has a different scope of use. */
-    pagename = ["ระบบลงทะเบียน โดย WHES"];  // we have exams on sunday
+    pagename = ["Registration system by WHES"];  // we have exams on sunday
     widgetBottom = [HomeRegisterPage()];
 
     /* This section of code handles Tab in each pages. We will configure the navbar to be the same on every page to make it easier to use and edit. */
@@ -51,7 +51,7 @@ class _UIPageState extends State<UIPage> {
                       MaterialPageRoute(builder: (context) => UIPage()));
                 },
                 icon: Icon(Icons.refresh),
-                color: Colors.white)
+                color: Colors.grey[800])
           ],
         ),
         body: TabBarView(children: [
