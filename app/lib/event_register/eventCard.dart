@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'enrollment.dart';
 
 class EventCard extends StatefulWidget {
+  final int id;
   final String event;
   final String startDate;
   final String endDate;
   const EventCard(
+    this.id,
     this.event,
     this.startDate,
     this.endDate
@@ -21,7 +24,7 @@ class _EventCardState extends State<EventCard> {
     return Padding(
       padding: const EdgeInsets.fromLTRB(4, 8, 4, 0),
       child: Card(
-        color: Colors.amberAccent,
+        color: Colors.amber[200],
         child: Padding(
           padding: const EdgeInsets.all(12.0),
           child: Row(
@@ -56,6 +59,7 @@ class _EventCardState extends State<EventCard> {
                 onPressed: () {
                   setState(() {
                     pressed = !pressed;
+                    confirmEnroll(widget.id);
                   });
                 },
                 style: ElevatedButton.styleFrom(

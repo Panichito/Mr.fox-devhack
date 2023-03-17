@@ -45,7 +45,7 @@ class _HomeRegisterPageState extends State<HomeRegisterPage> {
     return ListView.builder(
       itemCount: eventlist.length,
       itemBuilder: (context, index) {
-        return EventCard(eventlist[index]['name'], eventlist[index]['start'], eventlist[index]['end']);
+        return EventCard(eventlist[index]['id'], eventlist[index]['name'], eventlist[index]['start'], eventlist[index]['end']);
       }
     );
   }
@@ -56,7 +56,7 @@ class _HomeRegisterPageState extends State<HomeRegisterPage> {
     var response=await http.get(url);
     //var result=json.decode(response.body);
     var result=utf8.decode(response.bodyBytes);
-    print(result);
+    //print(result);
     setState(() {
       eventlist=jsonDecode(result);
     });

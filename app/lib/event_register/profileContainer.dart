@@ -21,7 +21,7 @@ class _ProfileContainerState extends State<ProfileContainer> {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: Colors.orange[400],
+        color: Colors.orange[300],
       ),
       child: Padding(
         padding: const EdgeInsets.fromLTRB(10, 20, 10, 20),
@@ -35,7 +35,7 @@ class _ProfileContainerState extends State<ProfileContainer> {
                 Text('Welcome Back,',
                     style: TextStyle(
                       fontSize: 18,
-                      color: Colors.grey[700],
+                      color: Colors.brown[600],
                     )),
                 const SizedBox(height: 5),
                 Container(
@@ -44,7 +44,7 @@ class _ProfileContainerState extends State<ProfileContainer> {
                     username,
                     overflow: TextOverflow.ellipsis,
                     maxLines: 1,
-                    style: const TextStyle(fontSize: 28, color: Colors.white, fontFamily: 'Quicksand'),
+                    style: TextStyle(fontSize: 28, color: Colors.grey[800], fontFamily: 'Quicksand'),
                   ),
                 )
               ],
